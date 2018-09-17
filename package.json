@@ -1,0 +1,26 @@
+{
+  "name": "decideup",
+  "version": "0.0.1",
+  "description": "Helps Groups make decisions",
+  "scripts": {
+    "test": "./bin/build.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/gorbotics/DecideUp.git"
+  },
+  "keywords": [
+    "decision",
+    "social",
+    "group",
+    "decide",
+    "vote",
+    "democracy"
+  ],
+  "author": "Brian Gorman",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/gorbotics/DecideUp/issues"
+  },
+  "homepage": "https://github.com/gorbotics/DecideUp#readme"
+}
