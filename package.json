@@ -4,7 +4,7 @@
   "description": "Helps Groups make decisions",
   "scripts": {
     "test-firebase-functions": "cd functions && npm install && npm test",
-    "test-angular": "cd site && npm install && ng build"	
+    "test-angular": "npm install -g @angular/cli && cd site && npm install && ng build"	
   },
   "repository": {
     "type": "git",
