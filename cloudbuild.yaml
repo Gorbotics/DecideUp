@@ -1,0 +1,9 @@
+steps:
+#- name: 'gcr.io/cloud-builders/npm'
+#  args: [ 'install' ]
+- name: 'gcr.io/cloud-builders/npm'
+  args: [ 'run', 'test-firebase-functions' ]
+- name: 'gcr.io/cloud-builders/npm'
+  args: [ 'run', 'test-angular' ]
+- name: 'gcr.io/decideupserver/firebase'
+  args: [ 'deploy', '-P', 'decideupserver', '--token', '1/FAnMd0QyRh_RQ1-zYLYBoVuwnszZ_RoVK1ZTvWiPJzgSCpKdfwDplR8hR9J1vNIo']
