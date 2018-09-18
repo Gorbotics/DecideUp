@@ -23,6 +23,12 @@ p {
     margin-top: 100px;
 }
 
+@media only screen and (max-width: 775px) {
+    .get-started-button {
+        margin-top: 40px;
+    }
+}
+
 .sidenav-trigger {
   color: #26a69a;
 }
