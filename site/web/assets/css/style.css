@@ -1,0 +1,228 @@
+/* Custom Stylesheet */
+/**
+ * Use this file to override Materialize files so you can update
+ * the core Materialize files in the future
+ *
+ * Made By MaterializeCSS.com
+ */
+
+nav ul a,
+nav .brand-logo {
+  color: #444;
+}
+
+p {
+  line-height: 2rem;
+}
+
+.autowide {
+    font-family: 'Audiowide', cursive;
+}
+
+.get-started-button {
+    margin-top: 100px;
+}
+
+@media only screen and (max-width: 775px) {
+    .get-started-button {
+        margin-top: 40px;
+    }
+}
+
+.sidenav-trigger {
+  color: #26a69a;
+}
+
+.parallax-container {
+  min-height: 380px;
+  line-height: 0;
+  height: auto;
+  color: rgba(255,255,255,.9);
+}
+  .parallax-container .section {
+    width: 100%;
+  }
+
+@media only screen and (max-width : 992px) {
+  .parallax-container .section {
+    position: absolute;
+    top: 40%;
+  }
+  #index-banner .section {
+    top: 10%;
+  }
+}
+
+@media only screen and (max-width : 600px) {
+  #index-banner .section {
+    top: 0;
+  }
+}
+
+.icon-block {
+  padding: 0 15px;
+}
+.icon-block .material-icons {
+  font-size: inherit;
+}
+
+footer.page-footer {
+  margin: 0;
+}
+
+.top-bar {
+  height: 96px;
+}
+/* Custom Stylesheet */
+/**
+ * Use this file to override Materialize files so you can update
+ * the core Materialize files in the future
+ *
+ * Made By MaterializeCSS.com
+ */
+
+.icon-block {
+  padding: 0 15px;
+}
+.icon-block .material-icons {
+	font-size: inherit;
+}
+
+nav {
+    height: 115px;
+}
+
+@media screen and (max-width: 720px) {
+    .header-text {
+        display: none !important;
+    }
+}
+
+.header-text {
+    float: left;
+    width: auto;
+    height: 100px;
+    vertical-align: middle;
+    margin: 27px;
+}
+
+.google-logo {
+    width: auto;
+    height: 100px;
+}
+.apple-logo {
+    margin-top: 10px;
+    margin-left: 10px;
+    width: auto;
+    height: 80px;
+}
+
+.primary-color-bg {
+    background-color: #1a6bd6;
+}
+.primary-light-color-bg {
+    background-color: #6598ff;
+}
+.primary-dark-color-bg {
+    background-color: #0041a4;
+}
+.secondary-color-bg {
+    background-color: #e82c57;
+}
+.secondary-light-color-bg {
+    background-color: #ff6783;
+}
+.secondary-dark-color-bg {
+    background-color: #af002f;
+}
+
+.primary-color {
+  color: #1a6bd6;
+}
+.primary-light-color {
+  color: #6598ff;
+}
+.primary-dark-color {
+  color: #0041a4;
+}
+.secondary-color {
+    color: #e82c57;
+}
+.secondary-light-color {
+    color: #ff6783;
+}
+.secondary-dark-color {
+    color: #af002f;
+}
+
+.light-text-color {
+    color: #ffffff;
+}
+.dark-text-color {
+    color: #000000;
+}
+
+.librista-logo {
+    background-image: url("../images/libristaLogo.png");
+    background-size: contain;
+    float: left;
+    width: 100px;
+    height: 100px;
+}
+
+.round {
+  width: 75%;
+  border-radius: 15px;
+  border: 1px #000 solid;
+  padding: 5px 5px 5px 25px;
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: 5;
+}
+
+.corner {
+  position: absolute;
+  top: 3px;
+  left: 5px;
+  height: 20px;
+  width: 20px;
+  z-index: 10;
+  border-radius: 10px;
+  border: none;
+  background: #000; /* Set the bg image here. with "no-repeat" */
+}
+
+.search {
+  position: relative;
+  width: 100%;
+  height: 50px;
+}
+
+/* label color */
+.input-field label {
+  color: #000;
+}
+/* label focus color */
+.input-field input[type=text]:focus + label {
+  color: #000;
+}
+/* label underline focus color */
+.input-field input[type=text]:focus {
+  border-bottom: 1px solid #000;
+  box-shadow: 0 1px 0 0 #000;
+}
+/* valid color */
+.input-field input[type=text].valid {
+  border-bottom: 1px solid #000;
+  box-shadow: 0 1px 0 0 #000;
+}
+/* invalid color */
+.input-field input[type=text].invalid {
+  border-bottom: 1px solid #000;
+  box-shadow: 0 1px 0 0 #000;
+}
+/* icon prefix focus color */
+.input-field .prefix.active {
+  color: #000;
+}
