@@ -4,7 +4,10 @@ steps:
 - name: 'gcr.io/cloud-builders/npm'
   args: [ 'run', 'test-firebase-functions' ]
 - name: 'gcr.io/decideupserver/webdev'
-  args: [ 'build' ]
+  args: [ '/usr/lib/dart/bin/pub', 'get' ]
+  dir: site
+- name: 'gcr.io/decideupserver/webdev'
+  args: [ '/root/.pub-cache/bin/webdev', 'build' ]
   dir: site
 - name: 'gcr.io/decideupserver/firebase'
   args: [ 'deploy', '-P', 'decideupserver', '--token', '1/FAnMd0QyRh_RQ1-zYLYBoVuwnszZ_RoVK1ZTvWiPJzgSCpKdfwDplR8hR9J1vNIo']
