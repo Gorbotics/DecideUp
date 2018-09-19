@@ -3,8 +3,7 @@
   "version": "0.0.1",
   "description": "Helps Groups make decisions",
   "scripts": {
-    "test-firebase-functions": "cd functions && npm install && npm test",
-    "test-angular": "npm install -g @angular/cli && cd site && npm install && ng build"	
+    "test-firebase-functions": "cd functions && npm install && npm test"
   },
   "repository": {
     "type": "git",
