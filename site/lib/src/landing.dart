@@ -9,6 +9,7 @@ import 'package:angular_router/angular_router.dart';
 class Landing implements OnActivate {
   @override
   void onActivate(RouterState previous, RouterState current) {
+    // calling the javascript init for materialize
     context.callMethod("initMaterialize");
   }
 }
