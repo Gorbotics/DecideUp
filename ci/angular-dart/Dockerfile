@@ -11,4 +11,4 @@ RUN apt-get install -y dart
 RUN /usr/lib/dart/bin/pub global activate webdev
 RUN /usr/lib/dart/bin/pub global activate stagehand
 
-ENTRYPOINT ["/root/.pub-cache/bin/webdev"]
+ENTRYPOINT ["/bin/bash"]
