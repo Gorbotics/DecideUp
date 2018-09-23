@@ -6,10 +6,7 @@ import 'package:angular_router/angular_router.dart';
   selector: 'landing',
   templateUrl: 'landing.html',
 )
-class Landing implements OnInit, OnActivate {
-  void ngOnInit() {
-  }
-
+class Landing implements OnActivate {
   @override
   void onActivate(RouterState previous, RouterState current) {
     context.callMethod("initMaterialize");
