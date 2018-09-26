@@ -12,7 +12,7 @@ import 'package:js/js.dart';
 @JS()
 abstract class DecideFireJS {
   external factory DecideFireJS();
-  external void checkEmail(String email, void Function(List<String>, String /* error */) callback);
+  external void checkEmail(String email, void Function(List<dynamic>, String /* error */) callback);
   external void signup(String email, String password, String displayName, void Function(DecideFireLoginResultJS) callback);
   external void login(String email, String password, void Function(DecideFireLoginResultJS) callback);
   external void currentUser(void Function(DecideFireUserJS) callback);
@@ -42,7 +42,7 @@ class DecideFire {
   DecideFire();
   Future<List<String>> checkEmail(String email) async {
     Completer<List<String>> completer = new Completer();
-    this.js.checkEmail(email, (methods, error) {
+    this.js.checkEmail(email, allowInterop((methods, error) {
       if(error != "") {
         completer.completeError(error);
       } else {
@@ -50,7 +50,7 @@ class DecideFire {
         methods.forEach((method) => methodStrings.add(method.toString()));
         completer.complete(methodStrings);
       }
-    });
+    }));
 
     return completer.future;
   }
@@ -61,37 +61,37 @@ class DecideFire {
 
   Future<User> currentUser() async {
     Completer<User> completer = new Completer();
-    this.js.currentUser((user) {
+    this.js.currentUser(allowInterop((user) {
       if(user != null) {
         completer.complete(User(user.uid(), user.name()));
       } else {
         completer.complete(null);
       }
-    });
+    }));
     return completer.future;
   }
 
   Future<LoginResult> signup(String email, String password, String displayName) async {
     Completer<LoginResult> completer = new Completer();
-    this.js.signup(email, password, displayName, (result)  {
+    this.js.signup(email, password, displayName, allowInterop((result)  {
       if(result.user() != null) {
         completer.complete(LoginResult(User(result.user().uid(), result.user().name()), null));
       } else {
         completer.complete(LoginResult(null, DecideError(result.error().code(), result.error().message())));
       }
-    });
+    }));
     return completer.future;
   }
 
   Future<LoginResult> login(String email, String password) async {
     Completer<LoginResult> completer = new Completer();
-    this.js.login(email, password, (result)  {
+    this.js.login(email, password, allowInterop((result)  {
       if(result.user() != null) {
         completer.complete(LoginResult(User(result.user().uid(), result.user().name()), null));
       } else {
         completer.complete(LoginResult(null, DecideError(result.error().code(), result.error().message())));
       }
-    });
+    }));
 
     return completer.future;
   }
