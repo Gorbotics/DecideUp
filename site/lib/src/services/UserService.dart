@@ -4,8 +4,8 @@ import 'package:decideup/src/domain/User.dart';
 import 'package:decideup/src/firebase/DecideFire.dart';
 
 class UserService {
-  final DecideFire fire = const DecideFire();
-  const UserService();
+  final DecideFire fire = DecideFire();
+  UserService();
 
   Future<User> current() async {
     return await fire.currentUser();
