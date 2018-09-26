@@ -11,7 +11,7 @@ import 'package:js/js.dart';
 
 @JS()
 abstract class DecideFireJS {
-  external const factory DecideFireJS();
+  external factory DecideFireJS();
   external void checkEmail(String email, void Function(List<String>, String /* error */) callback);
   external void signup(String email, String password, String displayName, void Function(DecideFireLoginResultJS) callback);
   external void login(String email, String password, void Function(DecideFireLoginResultJS) callback);
@@ -38,8 +38,8 @@ abstract class DecideFireLoginResultJS {
 }
 
 class DecideFire {
-  final DecideFireJS js = const DecideFireJS();
-  const DecideFire();
+  final DecideFireJS js = DecideFireJS();
+  DecideFire();
   Future<List<String>> checkEmail(String email) async {
     Completer<List<String>> completer = new Completer();
     this.js.checkEmail(email, (methods, error) {
