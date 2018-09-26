@@ -11,7 +11,7 @@ import 'package:js/js.dart';
 
 @JS()
 abstract class DecideFireJS {
-  external factory const DecideFireJS();
+  external const factory DecideFireJS();
   external void checkEmail(String email, void Function(List<String>, String /* error */) callback);
   external void signup(String email, String password, String displayName, void Function(DecideFireLoginResultJS) callback);
   external void login(String email, String password, void Function(DecideFireLoginResultJS) callback);
