@@ -1,0 +1,30 @@
+<div>
+    <div class="container">
+        <form #loginForm="ngForm">
+            <h4 class="light-blue-text lighten-1">Sign In</h4>
+            <div class="row">
+                <div class="input-field col s12">
+                    <input id="email" type="email" [(ngModel)]="email" ngControl="email" class="validate" required [ngClass]="{'invalid' : showEmailError}"/>
+                    <label for="email" [ngClass]="{'materialize-red-text' : showEmailError}">E-mail</label>
+                    <span class="helper-text materialize-red-text" *ngIf="showEmailError">{{emailError}}</span>
+                </div>
+            </div>
+            <div class="row" *ngIf="showName">
+                <div class="input-field col s12">
+                    <input id="fullName" type="text" [(ngModel)]="displayName" ngControl="displayName"/>
+                    <label for="fullName">Display Name</label>
+                </div>
+            </div>
+            <div class="row" *ngIf="showPassword">
+                <div class="input-field col s12">
+                    <input id="password" type="password" [(ngModel)]="password" ngControl="password" [ngClass]="{'invalid' : showPasswordError}" />
+                    <label for="password" [ngClass]="{'materialize-red-text' : showPasswordError}">Password</label>
+                    <span class="helper-text materialize-red-text" *ngIf="showPasswordError">{{passwordError}}</span>
+                </div>
+            </div>
+            <div class="row">
+                <a class="btn light-blue lighten-1 right" (click)="next">{{buttonText}}</a>
+            </div>
+        </form>
+    </div>
+</div>
