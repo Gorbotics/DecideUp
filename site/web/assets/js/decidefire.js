@@ -12,6 +12,26 @@ function DecideFireJS() {
 
 }
 
+DecideFireJS.prototype.push = function(path, obj, callback) {
+    let ref = firebase.database().ref(path).push();
+    ref.set(obj).then(() => {
+        callback(ref.key);
+    });
+};
+
+DecideFireJS.prototype.save = function(path, obj, callback) {
+    firebase.database().ref(path).set(obj).then(() => {
+        callback();
+    });
+};
+
+DecideFireJS.prototype.get = function(path, callback) {
+    console.log("getting at path " + path);
+    firebase.database().ref(path).once("value", (snap) => {
+        callback(snap.val());
+    });
+};
+
 DecideFireJS.prototype.logout = function() {
     firebase.auth().signOut();
 };
@@ -31,26 +51,35 @@ DecideFireJS.prototype.checkEmail = function(email, callback) {
 };
 
 DecideFireJS.prototype.signup = function(email, password, displayName, callback) {
-    firebase.auth().createUserWithEmailAndPassword(email, password).then((cred) => {
-        callback(new DecideFireLoginResultJS(new DecideFireUserJS(cred.user.uid, displayName)));
-        let uid = cred.user.uid;
-        firebase.database().ref("users").child(uid).set({
-            name: displayName
+    firebase.auth().setPersistence(firebase.auth.Auth.Persistence.LOCAL)
+        .then(function() {
+             return firebase.auth().createUserWithEmailAndPassword(email, password).then((cred) => {
+                callback(new DecideFireLoginResultJS(new DecideFireUserJS(cred.user.uid, displayName)));
+                let uid = cred.user.uid;
+                firebase.database().ref("users").child(uid).set({
+                    name: displayName
+                });
+            });
+        })
+        .catch(function(error) {
+            callback(new DecideFireLoginResultJS(null, new DecideFireErrorJS(error)));
         });
-    }).catch((error) => {
-        callback(new DecideFireLoginResultJS(null, new DecideFireErrorJS(error)));
-    });
+
 };
 
 DecideFireJS.prototype.login = function(email, password, callback) {
-    firebase.auth().signInAndRetrieveDataWithEmailAndPassword(email, password).then((cred) => {
-        let uid = cred.user.uid;
-        getUser(uid, (user) => {
-            callback(new DecideFireLoginResultJS(user));
+    firebase.auth().setPersistence(firebase.auth.Auth.Persistence.LOCAL)
+        .then(function() {
+            return firebase.auth().signInAndRetrieveDataWithEmailAndPassword(email, password).then((cred) => {
+                let uid = cred.user.uid;
+                getUser(uid, (user) => {
+                    callback(new DecideFireLoginResultJS(user));
+                });
+            });
+        })
+        .catch(function(error) {
+            callback(new DecideFireLoginResultJS(null, new DecideFireErrorJS(error)));
         });
-    }).catch((error) => {
-        callback(new DecideFireLoginResultJS(null, new DecideFireErrorJS(error)));
-    });
 };
 
 function DecideFireUserJS(uid, name) {

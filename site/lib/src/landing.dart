@@ -19,6 +19,5 @@ class Landing implements OnActivate {
   void onActivate(RouterState previous, RouterState current) {
     // calling the javascript init for materialize
     context.callMethod("initMaterialize");
-    this.rootService.showLogin = true;
   }
 }
