@@ -1,6 +1,6 @@
 <nav class="white top-bar" role="navigation">
     <div class="nav-wrapper container">
-        <a id="logo-container" href="/" class="brand-logo autowide">DecideUp</a>
+        <a id="logo-container" [routerLink]="RoutePaths.landing.toUrl()" class="brand-logo autowide">DecideUp</a>
         <ul class="right hide-on-med-and-down" *ngIf="showLogin">
             <li>
                 <a [routerLink]="RoutePaths.login.toUrl()" (click)="login" href="#" class="btn blue-grey lighten-2">Log In</a>
@@ -15,6 +15,9 @@
                     </div>
                     <div class="col">
                         <a [routerLink]="RoutePaths.dashboard.toUrl()" href="#">{{displayName}}</a>
+                    </div>
+                    <div class="col">
+                        <a [routerLink]="RoutePaths.dashboard.toUrl()" href="#">Dashboard</a>
                     </div>
                     <div class="col">
                         <a href="#" (click)="logout">Log Out</a>

@@ -10,42 +10,41 @@ import 'package:decideup/src/services/GroupService.dart';
 import 'package:decideup/src/services/UserService.dart';
 
 @Component(
-  selector: 'dashboard',
-  templateUrl: 'dashboard.html',
+  selector: 'viewGroup',
+  templateUrl: 'viewGroup.html',
   directives: [coreDirectives, formDirectives],
-  styleUrls: ['dashboard.css'],
+  styleUrls: ['viewGroup.css'],
 )
-class Dashboard implements OnActivate {
-  UserService userService;
+class ViewGroup implements OnActivate {
   GroupService groupService;
+  UserService userService;
   Router router;
 
-  String displayName;
+  User currentUser;
 
-  List<Group> groups = List();
+  Group group = Group(name: "", description: "");
 
-  Dashboard(this.userService, this.router, this.groupService);
+  ViewGroup(this.userService, this.router, this.groupService);
 
   @override
   void onActivate(RouterState previous, RouterState current) {
     context.callMethod("initMaterialize");
     this.userService.current().then((user) {
       if(user != null) {
-        displayName = user.name();
-        this.groupService.groupsFor(user).then((groups) {
-          this.groups = groups;
-        });
+        currentUser = user;
       } else {
         router.navigate(RoutePaths.login.toUrl());
       }
     });
+
+    print(current.parameters.toString());
+    String uid = current.parameters["uid"];
+    this.groupService.group(forUID: uid).then((group) {
+      this.group = group;
+    });
   }
 
-  void viewGroup(Group group) {
-    router.navigate(RoutePaths.viewGroup.toUrl(parameters: {'uid': group.uid}));
-  }
-
-  void addGroup() {
+  void addTopic() {
     router.navigate(RoutePaths.addGroup.toUrl());
   }
 }

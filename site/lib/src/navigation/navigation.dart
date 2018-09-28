@@ -12,9 +12,7 @@ import 'routes.dart';
   exports: [RoutePaths, Routes],
 )
 class Navigation {
-  @Input('showLogin')
-  bool showLogin;
-
+  bool showLogin = true;
   bool showUserInfo = false;
 
   String displayName;

@@ -2,12 +2,16 @@
 @JS()
 library decidefire;
 
+
 import 'dart:async';
 
 import 'package:decideup/src/domain/DecideError.dart';
 import 'package:decideup/src/domain/LoginResult.dart';
 import 'package:decideup/src/domain/User.dart';
 import 'package:js/js.dart';
+
+@JS("Object.keys")
+external List<String> getKeysForObject(jsObject);
 
 @JS()
 abstract class DecideFireJS {
@@ -16,6 +20,9 @@ abstract class DecideFireJS {
   external void signup(String email, String password, String displayName, void Function(DecideFireLoginResultJS) callback);
   external void login(String email, String password, void Function(DecideFireLoginResultJS) callback);
   external void currentUser(void Function(DecideFireUserJS) callback);
+  external void push(String path, dynamic obj, void Function(String /*uid*/) callback);
+  external void save(String path, dynamic obj, void Function() callback);
+  external void get(String path, void Function(dynamic result) callback);
   external void logout();
 }
 
@@ -37,6 +44,17 @@ abstract class DecideFireLoginResultJS {
   external DecideFireErrorJS error();
 }
 
+@JS()
+@anonymous
+class GroupJS {
+  external String get name;
+  external String get description;
+
+  external factory GroupJS({String name, String description, List<String> users});
+}
+
+//class
+
 class DecideFire {
   final DecideFireJS js = DecideFireJS();
   DecideFire();
@@ -57,6 +75,24 @@ class DecideFire {
 
   void logout() {
     this.js.logout();
+  }
+
+  Future<String> push(String path, dynamic obj) {
+    Completer<String> completer = new Completer();
+    this.js.push(path, obj, allowInterop((result) => completer.complete(result)));
+    return completer.future;
+  }
+
+  Future<void> save(String path, dynamic obj) {
+    Completer<void> completer = new Completer();
+    this.js.save(path, obj, allowInterop(() => completer.complete()));
+    return completer.future;
+  }
+
+  Future<dynamic> get(String path) {
+    Completer<dynamic> completer = new Completer();
+    this.js.get(path, allowInterop((result) => completer.complete(result)));
+    return completer.future;
   }
 
   Future<User> currentUser() async {

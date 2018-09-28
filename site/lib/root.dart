@@ -1,5 +1,7 @@
 import 'package:angular/angular.dart';
 import 'package:decideup/RootService.dart';
+import 'package:decideup/src/services/DatabaseService.dart';
+import 'package:decideup/src/services/GroupService.dart';
 import 'package:decideup/src/services/UserService.dart';
 import 'dart:js';
 
@@ -14,15 +16,18 @@ import 'package:decideup/src/navigation/routes.dart';
   styleUrls: ['root.css'],
   templateUrl: 'root.html',
   directives: [Navigation, routerDirectives],
-  providers: const [RootService, ClassProvider(UserService)],
+  providers: const [
+    RootService,
+    ClassProvider(UserService),
+    ClassProvider(GroupService),
+    ClassProvider(DatabaseService)
+  ],
   exports: [RoutePaths, Routes],
 )
 class Root implements OnInit {
-  var showLogin = true;
   RootService service;
 
   Root(this.service) {
-    this.service.onShowLogin.listen((value) => this.showLogin = value);
   }
   void ngOnInit() {
     context.callMethod("initMaterialize");
