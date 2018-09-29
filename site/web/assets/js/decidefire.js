@@ -54,11 +54,14 @@ DecideFireJS.prototype.signup = function(email, password, displayName, callback)
     firebase.auth().setPersistence(firebase.auth.Auth.Persistence.LOCAL)
         .then(function() {
              return firebase.auth().createUserWithEmailAndPassword(email, password).then((cred) => {
-                callback(new DecideFireLoginResultJS(new DecideFireUserJS(cred.user.uid, displayName)));
                 let uid = cred.user.uid;
-                firebase.database().ref("users").child(uid).set({
-                    name: displayName
-                });
+                 firebase.auth().signInAndRetrieveDataWithEmailAndPassword(email, password).then((cred) => {
+                     let user = new DecideFireUserJS(uid, displayName);
+                     callback(new DecideFireLoginResultJS(user));
+                     firebase.database().ref("users").child(uid).set({
+                         name: displayName
+                     });
+                 });
             });
         })
         .catch(function(error) {
