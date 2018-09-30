@@ -1,3 +1,16 @@
 :host {
     /* This is equivalent of the 'body' selector of a page. */
 }
+
+.loading {
+    padding-top: 100px;
+}
+
+.hidden {
+    display: none;
+}
+
+.main-content {
+    margin-top: 5px;
+}
+

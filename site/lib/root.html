@@ -1,5 +1,14 @@
 <div >
     <app-navigation></app-navigation>
-    <router-outlet [routes]="Routes.all"></router-outlet>
+    <div class="container loading center valign-wrapper"  [ngClass]="{'hidden' : !loading}">
+        <div class="row">
+            <div class="col">
+                <loading></loading>
+            </div>
+        </div>
+    </div>
+    <div class="main-content" [ngClass]="{'hidden' : loading}">
+        <router-outlet [routes]="Routes.all"></router-outlet>
+    </div>
 </div>
 

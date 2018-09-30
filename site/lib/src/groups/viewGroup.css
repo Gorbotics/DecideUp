@@ -1,0 +1,9 @@
+
+.view-group-header {
+    height: 150px;
+}
+
+.card-action a {
+    color: white !important;
+    cursor: pointer;
+}

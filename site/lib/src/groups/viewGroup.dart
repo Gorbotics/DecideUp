@@ -3,6 +3,7 @@ import 'dart:js';
 import 'package:angular/angular.dart';
 import 'package:angular_forms/angular_forms.dart';
 import 'package:angular_router/angular_router.dart';
+import 'package:decideup/RootService.dart';
 import 'package:decideup/src/domain/Group.dart';
 import 'package:decideup/src/domain/User.dart';
 import 'package:decideup/src/navigation/route_paths.dart';
@@ -16,6 +17,7 @@ import 'package:decideup/src/services/UserService.dart';
   styleUrls: ['viewGroup.css'],
 )
 class ViewGroup implements OnActivate {
+  RootService rootService;
   GroupService groupService;
   UserService userService;
   Router router;
@@ -24,12 +26,14 @@ class ViewGroup implements OnActivate {
 
   Group group = Group(name: "", description: "");
 
-  ViewGroup(this.userService, this.router, this.groupService);
+  ViewGroup(this.rootService, this.userService, this.router, this.groupService);
 
   @override
   void onActivate(RouterState previous, RouterState current) {
+    rootService.showLoading = true;
     context.callMethod("initMaterialize");
     this.userService.current().then((user) {
+      rootService.showLoading = false;
       if(user != null) {
         currentUser = user;
       } else {
@@ -45,6 +49,14 @@ class ViewGroup implements OnActivate {
   }
 
   void addTopic() {
-    router.navigate(RoutePaths.addGroup.toUrl());
+    router.navigate(RoutePaths.addTopic.toUrl());
+  }
+
+  void viewMembers() {
+
+  }
+
+  void invite() {
+
   }
 }

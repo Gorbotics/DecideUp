@@ -5,3 +5,7 @@ div.card-action a {
 div.card {
     cursor: pointer;
 }
+
+.group-card-info {
+    padding-bottom: 5px;
+}
