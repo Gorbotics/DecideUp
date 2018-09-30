@@ -8,9 +8,14 @@ let getUser = function(uid, callback) {
     });
 };
 
+
 function DecideFireJS() {
 
 }
+
+DecideFireJS.prototype.getKeysForObject = function(obj) {
+    return Object.keys(obj);
+};
 
 DecideFireJS.prototype.push = function(path, obj, callback) {
     let ref = firebase.database().ref(path).push();

@@ -28,12 +28,11 @@ class Dashboard implements OnActivate {
   List<Group> groups = List();
 
   Dashboard(this.rootService, this.userService, this.router, this.groupService) {
-    this.rootService.showLoading = true;
   }
 
   @override
   void onActivate(RouterState previous, RouterState current) {
-    context.callMethod("initMaterialize");
+    this.rootService.showLoading = true;
     this.userService.current().then((user) {
       if(user != null) {
         displayName = user.name();
@@ -42,6 +41,7 @@ class Dashboard implements OnActivate {
           this.rootService.showLoading = false;
         });
       } else {
+        this.rootService.showLoading = false;
         router.navigate(RoutePaths.login.toUrl());
       }
     });

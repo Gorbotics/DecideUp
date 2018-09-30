@@ -10,8 +10,6 @@ import 'package:decideup/src/domain/LoginResult.dart';
 import 'package:decideup/src/domain/User.dart';
 import 'package:js/js.dart';
 
-@JS("Object.keys")
-external List<String> getKeysForObject(jsObject);
 
 @JS()
 abstract class DecideFireJS {
@@ -23,6 +21,7 @@ abstract class DecideFireJS {
   external void push(String path, dynamic obj, void Function(String /*uid*/) callback);
   external void save(String path, dynamic obj, void Function() callback);
   external void get(String path, void Function(dynamic result) callback);
+  external List<String> getKeysForObject(dynamic jsObject);
   external void logout();
 }
 
@@ -73,6 +72,10 @@ class DecideFire {
     return completer.future;
   }
 
+  List<String> getKeysForObject(dynamic obj) {
+    return js.getKeysForObject(obj);
+  }
+
   void logout() {
     this.js.logout();
   }
@@ -91,7 +94,10 @@ class DecideFire {
 
   Future<dynamic> get(String path) {
     Completer<dynamic> completer = new Completer();
-    this.js.get(path, allowInterop((result) => completer.complete(result)));
+    this.js.get(path, allowInterop((result) {
+      completer.complete(result);
+    }));
+
     return completer.future;
   }
 
