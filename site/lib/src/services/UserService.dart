@@ -8,11 +8,18 @@ import 'package:js/js_util.dart' as util;
 
 class UserService {
   final DecideFire fire = DecideFire();
+
+  User _current;
+
   UserService();
 
+
   Future<User> current() async {
-    final User user = await fire.currentUser();
-    return user;
+    if(_current == null) {
+      _current = await fire.currentUser();
+    }
+
+    return _current;
   }
 
   Future<void> addGroup(User user, Group group) async {
@@ -48,6 +55,7 @@ class UserService {
   }
 
   void logout() {
+    _current = null;
     fire.logout();
   }
 }

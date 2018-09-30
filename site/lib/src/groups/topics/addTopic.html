@@ -1,0 +1,22 @@
+<div>
+    <div class="container">
+        <form #addTopicForm="ngForm">
+            <h4 class="light-blue-text lighten-1">Add Topic</h4>
+            <div class="row">
+                <div class="input-field col s12">
+                    <input id="topicName" type="text" [(ngModel)]="topicName" ngControl="topicName"/>
+                    <label for="topicName">Topic Name</label>
+                </div>
+            </div>
+            <div class="row">
+                <div class="input-field col s12">
+                    <input id="topicDescription" type="text" [(ngModel)]="topicDescription" ngControl="topicDescription"/>
+                    <label for="topicDescription">Description</label>
+                </div>
+            </div>
+            <div class="row">
+                <a class="btn light-blue lighten-1 right" (click)="add">Add</a>
+            </div>
+        </form>
+    </div>
+</div>

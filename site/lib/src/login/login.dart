@@ -44,7 +44,9 @@ class Login implements OnActivate{
   void next() async {
     DecideFire fire = new DecideFire();
     if(showPassword && showName) {
+      rootService.showLoading = true;
       LoginResult result = await fire.signup(email, password, displayName);
+      rootService.showLoading = false;
       if(result.error() != null) {
         showPasswordError = true;
         passwordError = result.error().message();
@@ -53,7 +55,9 @@ class Login implements OnActivate{
         this.rootService.isUserLoggedIn = true;
       }
     } else if(showPassword) {
+      rootService.showLoading = true;
       LoginResult result = await fire.login(email, password);
+      rootService.showLoading = false;
       if(result.error() != null) {
         showPasswordError = true;
         passwordError = result.error().message();

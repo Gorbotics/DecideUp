@@ -5,6 +5,7 @@ import 'package:decideup/src/login/login.template.dart' as login_template;
 import 'package:decideup/src/dashboard/dashboard.template.dart' as dashboard_template;
 import 'package:decideup/src/groups/addGroup.template.dart' as addGroup_template;
 import 'package:decideup/src/groups/viewGroup.template.dart' as viewGroup_template;
+import 'package:decideup/src/groups/topics/addTopic.template.dart' as addTopic_template;
 import 'package:decideup/src/navigation/route_paths.dart';
 
 export 'package:decideup/src/navigation/route_paths.dart';
@@ -36,11 +37,17 @@ class Routes {
     component: viewGroup_template.ViewGroupNgFactory,
   );
 
+  static final addTopic = RouteDefinition(
+    routePath: RoutePaths.addTopic,
+    component: addTopic_template.AddTopicNgFactory,
+  );
+
   static final all = <RouteDefinition>[
     landing,
     login,
     dashboard,
     addGroup,
     viewGroup,
+    addTopic,
   ];
 }

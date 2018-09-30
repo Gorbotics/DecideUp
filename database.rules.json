@@ -10,9 +10,11 @@
       }
     },
     "groups": {
-      ".read": "data.child('users/' + auth.uid).exists()",
-      ".write": "data.child('users/' + auth.uid).exists() || !data.exists()",
-      ".validate": "newData.child('users/' + auth.uid).exists()"
+      "$groupid": {
+        ".read": "data.child('users/' + auth.uid).exists()",
+        ".write": "data.child('users/' + auth.uid).exists() || !data.exists()",
+        ".validate": "newData.child('users/' + auth.uid).exists()"
+      }
     }
   }
 }
