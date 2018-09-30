@@ -26,20 +26,13 @@ class UserService {
     final dynamic userObject = await fire.get("users/" + user.uid());
 
     dynamic groups;
-    try {
-      groups = userObject.groups;
-    } catch(NoSuchMethodException) {
-      // groups doesnt exist
+    if(util.hasProperty(userObject, "groups")) {
+      groups = util.getProperty(userObject, "groups");
+    } else {
       groups = util.newObject();
       util.setProperty(userObject, "groups", groups);
     }
-
-    if(userObject.groups == null) {
-      groups = util.newObject();
-      util.setProperty(userObject, "groups", groups);
-    }
-
-    util.setProperty(userObject.groups, group.uid, "owner");
+    util.setProperty(groups, group.uid, "owner");
 
     await fire.save("users/" + user.uid(), userObject);
   }

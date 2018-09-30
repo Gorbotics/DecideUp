@@ -24,13 +24,11 @@ class GroupService {
   }
 
   Future<List<Group>> groupsFor(User user) async {
-    final dynamic userObject = await fire.get("users/" + user.uid());
-
     List<Group> groups = List();
-
-    if(userObject.groups != null) {
-      print("about to try to iterate over groups");
-      List<String> uids = getKeysForObject(userObject.groups);
+    final dynamic userObject = await fire.get("users/" + user.uid());
+    if(util.hasProperty(userObject, "groups")) {
+      var groupsObject = util.getProperty(userObject, "groups");
+      List<String> uids = fire.getKeysForObject(groupsObject);
       for(var uid in uids) {
         groups.add(await group(forUID: uid));
       }
