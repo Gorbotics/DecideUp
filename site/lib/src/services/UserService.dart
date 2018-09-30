@@ -18,7 +18,6 @@ class UserService {
     if(_current == null) {
       _current = await fire.currentUser();
     }
-
     return _current;
   }
 

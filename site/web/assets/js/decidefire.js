@@ -42,12 +42,13 @@ DecideFireJS.prototype.logout = function() {
 };
 
 DecideFireJS.prototype.currentUser = function(callback) {
-    let user = firebase.auth().currentUser;
-    if(user != null) {
-        getUser(user.uid, callback);
-    } else {
-        callback(null);
-    }
+    firebase.auth().onAuthStateChanged(function(user) {
+        if (user != null) {
+            getUser(user.uid, callback);
+        } else {
+            callback(null);
+        }
+    });
 };
 
 DecideFireJS.prototype.checkEmail = function(email, callback) {
@@ -76,7 +77,7 @@ DecideFireJS.prototype.signup = function(email, password, displayName, callback)
 };
 
 DecideFireJS.prototype.login = function(email, password, callback) {
-    firebase.auth().setPersistence(firebase.auth.Auth.Persistence.LOCAL)
+    firebase.auth().setPersistence(firebase.auth.Auth.Persistence.SESSION)
         .then(function() {
             return firebase.auth().signInAndRetrieveDataWithEmailAndPassword(email, password).then((cred) => {
                 let uid = cred.user.uid;
