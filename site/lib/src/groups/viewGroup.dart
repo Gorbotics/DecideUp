@@ -7,7 +7,9 @@ import 'package:decideup/RootService.dart';
 import 'package:decideup/src/domain/Group.dart';
 import 'package:decideup/src/domain/User.dart';
 import 'package:decideup/src/navigation/route_paths.dart';
+import 'package:decideup/src/services/DomainService.dart';
 import 'package:decideup/src/services/GroupService.dart';
+import 'package:decideup/src/services/TopicService.dart';
 import 'package:decideup/src/services/UserService.dart';
 
 @Component(
@@ -18,21 +20,22 @@ import 'package:decideup/src/services/UserService.dart';
 )
 class ViewGroup implements OnActivate {
   RootService rootService;
-  GroupService groupService;
-  UserService userService;
+  DatabaseService databaseService;
   Router router;
 
   User currentUser;
 
-  Group group = Group(name: "", description: "");
+  Group group;
 
-  ViewGroup(this.rootService, this.userService, this.router, this.groupService);
+  ViewGroup(this.rootService, this.databaseService, this.router) {
+    group = Group("", "");
+  }
 
   @override
   void onActivate(RouterState previous, RouterState current) {
     rootService.showLoading = true;
     context.callMethod("initMaterialize");
-    this.userService.current().then((user) {
+    this.databaseService.user.current().then((user) {
       rootService.showLoading = false;
       if(user != null) {
         currentUser = user;
@@ -41,9 +44,8 @@ class ViewGroup implements OnActivate {
       }
     });
 
-    print(current.parameters.toString());
     String uid = current.parameters["uid"];
-    this.groupService.group(forUID: uid).then((group) {
+    this.databaseService.group.getBy(uid).then((group) {
       this.group = group;
     });
   }

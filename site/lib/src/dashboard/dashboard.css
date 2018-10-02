@@ -9,3 +9,8 @@ div.card {
 .group-card-info {
     padding-bottom: 5px;
 }
+
+.card-action a {
+    color: white !important;
+    cursor: pointer;
+}

@@ -2,7 +2,7 @@ import 'package:angular/angular.dart';
 import 'package:angular_router/angular_router.dart';
 import 'package:decideup/RootService.dart';
 import 'package:decideup/src/domain/User.dart';
-import 'package:decideup/src/services/UserService.dart';
+import 'package:decideup/src/services/DomainService.dart';
 import 'routes.dart';
 
 @Component(
@@ -17,16 +17,18 @@ class Navigation {
 
   String displayName;
 
-  final UserService userService;
+  final DatabaseService databaseService;
   final RootService rootService;
-  Navigation(this.userService, this.rootService) {
+  final Router router;
+
+  Navigation(this.databaseService, this.rootService, this.router) {
     this.rootService.onIsUserLoggedIn.listen((isLoggedOn) => refreshUser(isLoggedOn));
-    this.userService.current().then((user) => setUser(user));
+    this.databaseService.user.current().then((user) => setUser(user));
   }
 
   void refreshUser(bool isLoggedOn) {
     if(isLoggedOn) {
-      userService.current().then((user) => setUser(user));
+      databaseService.user.current().then((user) => setUser(user));
     }
   }
 
@@ -34,12 +36,12 @@ class Navigation {
     if(user != null) {
       showLogin = false;
       showUserInfo = true;
-      displayName = user.name();
+      displayName = user.name;
     }
   }
 
   logout() {
-    this.userService.logout();
+    this.databaseService.user.logout();
     this.rootService.isUserLoggedIn = false;
     showLogin = true;
     showUserInfo = false;
@@ -49,4 +51,11 @@ class Navigation {
     showLogin = false;
   }
 
+  goToLogin() {
+    router.navigate(RoutePaths.login.toUrl(parameters: {'isSignUp': "false"}));
+  }
+
+  goToSignUp() {
+    router.navigate(RoutePaths.login.toUrl(parameters: {'isSignUp': "true"}));
+  }
 }

@@ -3,8 +3,8 @@
         <a id="logo-container" [routerLink]="RoutePaths.landing.toUrl()" class="brand-logo autowide">DecideUp</a>
         <ul class="right hide-on-med-and-down" *ngIf="showLogin">
             <li>
-                <a [routerLink]="RoutePaths.login.toUrl()" (click)="login" href="#" class="btn blue-grey lighten-2">Log In</a>
-                <a [routerLink]="RoutePaths.login.toUrl()"  class="btn light-blue lighten-1">Sign Up</a>
+                <a (click)="goToLogin" class="btn blue-grey lighten-2">Log In</a>
+                <a (click)="goToSignUp" class="btn light-blue lighten-1">Sign Up</a>
             </li>
         </ul>
         <ul class="right hide-on-med-and-down" *ngIf="showUserInfo">
@@ -20,7 +20,7 @@
                         <a [routerLink]="RoutePaths.dashboard.toUrl()" href="#">Dashboard</a>
                     </div>
                     <div class="col">
-                        <a href="#" (click)="logout">Log Out</a>
+                        <a (click)="logout">Log Out</a>
                     </div>
                 </div>
             </li>
@@ -28,8 +28,8 @@
 
         <ul id="nav-mobile" class="sidenav">
             <li *ngIf="showLogin">
-                <a [routerLink]="RoutePaths.login.toUrl()" href="#" class="btn blue-grey lighten-2">Log In</a>
-                <a [routerLink]="RoutePaths.login.toUrl()"  class="btn light-blue lighten-1">Sign Up</a>
+                <a (click)="goToLogin" class="btn blue-grey lighten-2 sidenav-close">Log In</a>
+                <a (click)="goToSignUp" class="btn light-blue lighten-1 sidenav-close">Sign Up</a>
             </li>
             <li *ngIf="showUserInfo">
                 <div class="row black-text">
@@ -41,10 +41,10 @@
                     </div>
                 </div>
                 <div class="row">
-                    <a [routerLink]="RoutePaths.dashboard.toUrl()" href="#">Dashboard</a>
+                    <a [routerLink]="RoutePaths.dashboard.toUrl()" href="#" class="sidenav-close">Dashboard</a>
                 </div>
                 <div class="row">
-                    <a href="#" (click)="logout">Log Out</a>
+                    <a href="#" (click)="logout" class="sidenav-close">Log Out</a>
                 </div>
             </li>
         </ul>
