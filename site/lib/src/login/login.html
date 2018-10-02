@@ -1,10 +1,10 @@
 <div>
     <div class="container">
         <form #loginForm="ngForm">
-            <h4 class="light-blue-text lighten-1">Sign In</h4>
+            <h4 class="light-blue-text lighten-1">{{welcomeText}}</h4>
             <div class="row">
                 <div class="input-field col s12">
-                    <input id="email" type="email" [(ngModel)]="email" ngControl="email" class="validate" required [ngClass]="{'invalid' : showEmailError}"/>
+                    <input id="email" type="email" [(ngModel)]="email" ngControl="email" class="validate" required [ngClass]="{'invalid' : showEmailError}" [autoFocus]/>
                     <label for="email" [ngClass]="{'materialize-red-text' : showEmailError}">E-mail</label>
                     <span class="helper-text materialize-red-text" *ngIf="showEmailError">{{emailError}}</span>
                 </div>

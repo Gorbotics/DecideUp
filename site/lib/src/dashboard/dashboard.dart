@@ -1,15 +1,10 @@
-import 'dart:js';
-
 import 'package:angular/angular.dart';
 import 'package:angular_forms/angular_forms.dart';
 import 'package:angular_router/angular_router.dart';
 import 'package:decideup/RootService.dart';
-import 'package:decideup/src/common/Loading.dart';
 import 'package:decideup/src/domain/Group.dart';
-import 'package:decideup/src/domain/User.dart';
 import 'package:decideup/src/navigation/route_paths.dart';
-import 'package:decideup/src/services/GroupService.dart';
-import 'package:decideup/src/services/UserService.dart';
+import 'package:decideup/src/services/DomainService.dart';
 
 
 @Component(
@@ -20,23 +15,23 @@ import 'package:decideup/src/services/UserService.dart';
 )
 class Dashboard implements OnActivate {
   RootService rootService;
-  UserService userService;
-  GroupService groupService;
+  DatabaseService databaseService;
+
   Router router;
   String displayName;
 
   List<Group> groups = List();
 
-  Dashboard(this.rootService, this.userService, this.router, this.groupService) {
+  Dashboard(this.rootService, this.databaseService, this.router) {
   }
 
   @override
   void onActivate(RouterState previous, RouterState current) {
     this.rootService.showLoading = true;
-    this.userService.current().then((user) {
+    this.databaseService.user.current().then((user) {
       if(user != null) {
-        displayName = user.name();
-        this.groupService.groupsFor(user).then((groups) {
+        displayName = user.name;
+        user.groups().then((groups) {
           this.groups = groups;
           this.rootService.showLoading = false;
         });

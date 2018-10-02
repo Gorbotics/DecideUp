@@ -4,3 +4,7 @@ var initMaterialize = function() {
     $('.parallax').parallax();
     $('.fixed-action-btn').floatingActionButton();
 };
+
+var closeSideBar = function() {
+    $('.sidenav').close();
+};

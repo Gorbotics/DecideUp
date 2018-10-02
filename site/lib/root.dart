@@ -1,8 +1,10 @@
 import 'package:angular/angular.dart';
+import 'package:angular_components/angular_components.dart';
 import 'package:decideup/RootService.dart';
 import 'package:decideup/src/common/Loading.dart';
-import 'package:decideup/src/services/DatabaseService.dart';
+import 'package:decideup/src/services/DomainService.dart';
 import 'package:decideup/src/services/GroupService.dart';
+import 'package:decideup/src/services/TopicService.dart';
 import 'package:decideup/src/services/UserService.dart';
 import 'dart:js';
 
@@ -19,9 +21,8 @@ import 'package:decideup/src/navigation/routes.dart';
   directives: [Navigation, coreDirectives, routerDirectives, Loading],
   providers: const [
     RootService,
-    ClassProvider(UserService),
-    ClassProvider(GroupService),
-    ClassProvider(DatabaseService)
+    ClassProvider(DatabaseService),
+    materialProviders
   ],
   exports: [RoutePaths, Routes],
 )

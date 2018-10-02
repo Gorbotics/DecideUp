@@ -1,58 +1,41 @@
 import 'dart:async';
-
 import 'package:decideup/src/domain/Group.dart';
 import 'package:decideup/src/domain/User.dart';
 import 'package:decideup/src/firebase/DecideFire.dart';
-import 'package:decideup/src/services/UserService.dart';
-import 'package:js/js.dart';
+import 'package:decideup/src/services/DomainService.dart';
 import 'package:js/js_util.dart' as util;
 
-class GroupService {
 
-  final DecideFire fire = DecideFire();
-  final UserService userService;
+class GroupService extends DomainService<Group> {
+  DatabaseService databaseService;
+  DecideFire fire = DecideFire();
 
-  User currentUser;
-
-  GroupService(this.userService) {
-    this.userService.current().then((user) => this.currentUser = user);
+  @override
+  Future<Group> getBy(String uid) async {
+    final dynamic groupObject = await fire.get("groups/" + uid);
+    return Group(groupObject.name, groupObject.description, uid: uid);
   }
 
-  Future<Group> group({String forUID}) async {
-    final dynamic groupObject = await fire.get("groups/" + forUID);
-    return Group(uid: forUID, name: groupObject.name, description: groupObject.description);
-  }
-
-  Future<List<Group>> groupsFor(User user) async {
-    List<Group> groups = List();
-    final dynamic userObject = await fire.get("users/" + user.uid());
-    if(util.hasProperty(userObject, "groups")) {
-      var groupsObject = util.getProperty(userObject, "groups");
-      List<String> uids = fire.getKeysForObject(groupsObject);
-      for(var uid in uids) {
-        groups.add(await group(forUID: uid));
-      }
-    }
-
-    return groups;
-  }
-
+  @override
   Future<Group> save(Group group) async {
     var object = util.newObject();
     util.setProperty(object, "name", group.name);
     util.setProperty(object, "description", group.description);
 
+    final User currentUser = await databaseService.user.current();
     var usersObject = util.newObject();
-    util.setProperty(usersObject, currentUser.uid(), "owner");
+    util.setProperty(usersObject, currentUser.uid, "owner");
 
     util.setProperty(object, "users", usersObject);
 
+    var topics = util.newObject();
+    util.setProperty(object, "topics", topics);
+
     if(group.uid == null) {
-      String uid = await this.fire.push("groups", object);
-      group = Group(uid: uid, name: group.name, description: group.description);
-      this.userService.addGroup(currentUser, group);
+      String uid = await fire.push("groups", object);
+      group = Group(group.name, group.description, uid: uid, userToInfo: {uid: "owner"}, topicToCreateTime: {}, service: databaseService);
     } else {
-      await this.fire.save("groups/" + group.uid, object);
+      await fire.save("groups/" + group.uid, object);
     }
 
     return group;
